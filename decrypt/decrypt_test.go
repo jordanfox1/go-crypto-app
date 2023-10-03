@@ -1,6 +1,7 @@
 package decrypt
 
 import (
+	test_helper "crypto_cli/testing"
 	"log"
 	"os"
 	"testing"
@@ -22,9 +23,9 @@ func setupTestEnv() ([]byte, []byte) {
 	return key, nonce
 }
 
-// TODO get DecryptCipherText() to not throw an authentication error in testing env, or find another way to test this.
 func TestDecryptCipherText(t *testing.T) {
-	t.Skip()
+	test_helper.SetSkipAuth()
+	defer test_helper.UnsetSkipAuth()
 	var key, nonce = setupTestEnv()
 
 	type args struct {
@@ -39,7 +40,7 @@ func TestDecryptCipherText(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Decryption successful for a sample text",
+			name: "Tests if the decrypted output is equal to the original plaintext that was encrypted",
 			args: args{
 				inputFile:  "encrypted.txt", // Provide the path to the encrypted file
 				outputFile: "decrypted.txt", // Provide the path for the decrypted output
