@@ -30,7 +30,7 @@ func mockFn(foo []byte, bar string) {}
 func TestEncryptPlainText(t *testing.T) {
 	mockKey, err := Generate32ByteEncryptionKey(mockFn, "string")
 	if err != nil {
-		t.Fatalf("Failed to create an ecryption key in test: %v", err)
+		t.Fatalf("Failed to create an encryption key in test: %v", err)
 	}
 	mockGcm, mockNonce := createMockEncryptionContextData(t, mockKey)
 

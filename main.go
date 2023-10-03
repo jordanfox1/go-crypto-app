@@ -43,6 +43,6 @@ func dec() {
 	if err != nil {
 		log.Panic(err)
 	}
-	decrypt.DecryptCipherText("encrypted.txt", "decrypted.txt", key, nonce)
 
+	decrypt.DecryptCipherText("encrypted.txt", "decrypted.txt", key, nonce)
 }
