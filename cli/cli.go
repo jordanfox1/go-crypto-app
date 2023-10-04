@@ -33,7 +33,7 @@ func StartEncrypt() {
 	if scanner.Scan() {
 		userInput := scanner.Text()
 		prompt.Println("You entered: ", userInput)
-		process.Println("Atempting to encrypt file in current directory named:", userInput)
+		process.Println("Attempting to encrypt file in current directory named:", userInput)
 
 		err := checkIfFileExists(userInput)
 		if err != nil {
@@ -118,7 +118,7 @@ func startDecrypt() {
 	if scanner.Scan() {
 		userInput := scanner.Text()
 		prompt.Println("You entered: ", userInput)
-		process.Println("Atempting to decrypt file in current directory named:", userInput)
+		process.Println("Attempting to decrypt file in current directory named:", userInput)
 
 		err := checkIfFileExists(userInput)
 		if err != nil {
