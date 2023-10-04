@@ -1,7 +1,7 @@
 package decrypt
 
 import (
-	test_helper "crypto_cli/testing"
+	"bytes"
 	"log"
 	"os"
 	"testing"
@@ -24,8 +24,7 @@ func setupTestEnv() ([]byte, []byte) {
 }
 
 func TestDecryptCipherText(t *testing.T) {
-	test_helper.SetSkipAuth()
-	defer test_helper.UnsetSkipAuth()
+	defer os.Remove("decrypted.txt")
 	var key, nonce = setupTestEnv()
 
 	type args struct {
@@ -54,6 +53,14 @@ func TestDecryptCipherText(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := DecryptCipherText(tt.args.inputFile, tt.args.outputFile, tt.args.key, tt.args.nonce); (err != nil) != tt.wantErr {
 				t.Errorf("DecryptCipherText() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			decrypted, _ := os.ReadFile("decrypted.txt")
+			ptext, _ := os.ReadFile("plaintext.txt")
+			t.Logf("Decrypted contents is a string of %s. Original Plaintext is a string of %s", string(decrypted), string(ptext))
+
+			if !bytes.Equal(decrypted, ptext) {
+				t.Errorf("DecryptCipherText() error: decrypted text not equal to plaintext, Decrypted contents was: %v. Expected: %v", decrypted, ptext)
 			}
 		})
 	}
